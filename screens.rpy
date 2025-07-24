@@ -1585,3 +1585,28 @@ style slider_vbox:
 style slider_slider:
     variant "small"
     xsize 900
+
+screen status_bar():
+    frame:
+        xalign 0.01
+        yalign 0.02
+        has vbox
+        text "Day [player['days']]" color "#ffffff" size 28
+        text "时间: [player['current_hour']]:00" color "#66c1e0" size 28
+
+    frame:
+        xalign 0.98
+        yalign 0.02
+        has vbox
+        hbox:
+            spacing 30
+            text "精力: [player['e']]" color "#66c1e0" size 30
+            text "心情: [player['m']]" color "#ffcc66" size 30
+        hbox:
+            spacing 30
+            text "健康: [player['H']]" color "#ffffff" size 28
+            text "社交: [player['S']]" color "#99ccff" size 28
+
+# 在 say 屏幕或主界面调用
+init python:
+    config.overlay_screens.append("status_bar")

@@ -48,7 +48,7 @@ init python:
         current_time = player.get("day_time_blocked", 0)
 
         if not allow_overtime and current_time + duration > 16:
-            return False, "今日剩余时间不足，无法执行该行为。"
+            return False, "马上要睡觉了，做点别的吧。"
 
         behavior = behavior_table.get(behavior_key)
         if not behavior:
@@ -59,9 +59,9 @@ init python:
         m_cost = round(behavior["m"] * multipliers.get("m", 1.0), 2)
 
         if player["e"] < e_cost:
-            return False, f"精力不足（需要: {e_cost}）"
+            return False, f"你没有精力完成这件事（需要: {e_cost}）"
         if player["m"] < m_cost:
-            return False, f"心情不足（需要: {m_cost}）"
+            return False, f"你现在没有心情（需要: {m_cost}）"
 
         return True, ""
 
@@ -72,7 +72,7 @@ init python:
     def perform_behavior(behavior_key, player):
         # 🛑 若处于重病/重度抑郁阶段且尝试使用 seek_treatment，看病无效
         if player.get("recovery_in_progress") and behavior_key == "seek_treatment":
-            return "简单看看医生对你的情况已经没有帮助。"
+            return "简单看看医生对你的情况已经没有帮助，你需要更深入的治疗。"
 
         # 🩺 轻度状态时的“看病”行为
         if behavior_key == "seek_treatment":

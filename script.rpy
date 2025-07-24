@@ -15,6 +15,7 @@ default player = {
     "force_skip_day": False,
     "skip_reason": "",
     "selected_behavior": None,
+    "S": 0,  # ← 新增社交值
 }
 
 # 📌 游戏主入口
@@ -139,6 +140,23 @@ label study_menu:
 
 # 📌 行为执行
 label behavior_executor:
+    if player["selected_behavior"] == "study_2h":
+        "你开始学习 2 小时。"
+    elif player["selected_behavior"] == "study_4h":
+        "你开始学习 4 小时。"
+    elif player["selected_behavior"] == "exercise_1h":
+        "你去运动了 1 小时。"
+    elif player["selected_behavior"] == "play_game_2h":
+        "你玩了 2 小时游戏。"
+    elif player["selected_behavior"] == "social_2h":
+        "你进行了一次社交活动。"
+    elif player["selected_behavior"] == "chores_1h":
+        "你做了 1 小时家务。"
+    elif player["selected_behavior"] == "nap_1h":
+        "你小憩了 1 小时。"
+    elif player["selected_behavior"] == "seek_treatment":
+        "你去看病了。"
+
     $ perform_behavior(player["selected_behavior"], player)
     jump post_action
 

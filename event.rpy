@@ -1,4 +1,3 @@
-
 # 📦 =============================
 # 📘 event.rpy - 行为事件系统
 # 包含行为触发的自动事件、社交反馈、健康事件等
@@ -32,7 +31,7 @@ init python:
         根据社交值，在行为中自动触发正面/负面事件。
         返回 (事件效果字典, 消息列表)
         """
-        p = get_social_bonus_chance(player["S"])
+        p = get_social_bonus_chance(player.get("S", 0))
         if not roll_event_chance(p):
             return {}, []
 
@@ -140,3 +139,6 @@ label hiking_event:
             "你婉拒了邀请，朋友似乎有点失望。"
 
     jump daily_continue
+
+label daily_continue:
+    jump daily_decision
