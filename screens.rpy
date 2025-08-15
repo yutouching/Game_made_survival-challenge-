@@ -1587,13 +1587,31 @@ style slider_slider:
     xsize 900
 
 screen status_bar():
+    # 左上角状态信息
     frame:
         xalign 0.01
         yalign 0.02
         has vbox
-        text "Day [player['days']]" color "#ffffff" size 28
-        text "时间: [player['current_hour']]:00" color "#66c1e0" size 28
+        
+        python:
+            display_day, display_hour, time_str = format_time_display(player['current_hour'], player['days'])
+        
+        text "[time_str]" color "#66c1e0" size 26
 
+    # 左上角复习进度按钮（在状态信息下方）
+    frame:
+        xalign 0.01
+        yalign 0.15
+        padding (10, 8)
+        background "#004488"
+        
+        textbutton "复习进度":
+            action Show("review_progress_panel")
+            text_size 20
+            text_color "#ffffff"
+            text_hover_color "#66c1e0"
+
+    # 右上角状态值
     frame:
         xalign 0.98
         yalign 0.02

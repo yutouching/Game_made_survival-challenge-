@@ -1,4 +1,3 @@
-
 # 📦 =============================
 # 📘 function.rpy - 游戏通用逻辑函数定义
 # 本文件包含效率计算、状态判定、事件触发等后端逻辑。
@@ -132,3 +131,41 @@ init python:
         """
         player["force_skip_day"] = True
         player["skip_reason"] = reason
+
+    # =====================
+    # 📌 时间格式化函数
+    # =====================
+    def format_time_display(current_hour, base_day):
+        """
+        格式化时间显示，处理跨天情况
+        current_hour: 当前小时数（可能超过24）
+        base_day: 基础天数
+        返回: (显示天数, 显示小时, 时间字符串)
+        """
+        if current_hour < 24:
+            # 当天
+            display_day = base_day
+            display_hour = current_hour
+            if current_hour <= 6:
+                time_period = "凌晨"
+            elif current_hour < 12:
+                time_period = "上午"
+            elif current_hour < 18:
+                time_period = "下午"
+            else:
+                time_period = "晚上"
+        else:
+            # 跨天
+            display_day = base_day + 1
+            display_hour = current_hour - 24
+            if display_hour <= 6:
+                time_period = "凌晨"
+            elif display_hour < 12:
+                time_period = "上午"
+            else:
+                time_period = "下午"
+        
+        time_str = f"Day {display_day} {time_period} {display_hour}:00"
+        return display_day, display_hour, time_str
+
+    # =====================
